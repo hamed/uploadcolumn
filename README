@@ -49,11 +49,12 @@ By default, UploadColumn will keep the name of the original file, however this m
 
     upload_column :picture, :filename => "donkey.png"
     
-In which case all files will be named +donkey.png+. This is not desirable if the file in question is a jpeg file of course. Usually it is more sensible to pass a Proc to :filename.
+In which case all files will be named +donkey.png+, and their formats will be changed to PNG. This is not desirable if the file in question is a jpeg file and you want to keep it as a jpeg. Usually it is more sensible to pass a Proc to :filename.
 
     upload_column :picture, :filename => proc{|record, file| "avatar#{record.id}.#{file.extension}"}
     
 The Proc will be passed two parameters, the current instance, and the file itself.
+
 
 == Manipulators
 
