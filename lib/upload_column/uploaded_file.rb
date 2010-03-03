@@ -142,7 +142,7 @@ module UploadColumn
     
     # Returns the path of the file relative to :root_dir
     def relative_path
-      self.path.sub(File.expand_path(options[:root_dir]) + '/', '')
+ 	File.join(self.store_dir,self.filename).sub(File.expand_path(options[:root_dir]) + '/', '')
     end
     
     # returns the full path of the file.
@@ -190,10 +190,8 @@ module UploadColumn
     
     def filename
 	bn = parse_dir_options(:filename)
-      unless (bn.nil? and self.suffix.nil?)
-	unless bn.nil? 
-		self.filename=bn
-	end
+      if (!bn.nil? or self.suffix)
+	self.filename = bn if bn
         bn = [self.basename, self.suffix].compact.join('-')
         bn += ".#{self.extension}" unless self.extension.blank?
       end
